@@ -24,13 +24,15 @@ interface APIInterface {
 
     @FormUrlEncoded
     @POST("authenticate")
-    Call<ResponseBody> doConnect(@Field("user") String pseudo, @Field("password") String passe);
+    Call<AuthResponse> doConnect(@Field("user") String pseudo, @Field("password") String passe);
     // {"version":1.3,"success":true,"status":202,"hash":"4e28dafe87d65cca1482d21e76c61a06"}
 
+    @GET("conversations/{id}/messages")
+    Call<ListMessage> doGetListMessageConversation(@Path("id") String identifiant,@Header("hash") String hash);
 
-    /*
-    @GET("conversations")
-    Call<ListMessage> doGetListMessageConversation(@Header("hash") String hash);*/
+    @FormUrlEncoded
+    @POST("conversations/{id}/messages")
+    Call<ResponseBody> doPostMessage(@Path("id") String identifiant, @Field("contenu") String contenu, @Header("hash") String hash);
 
     /*
     @GET("users")
