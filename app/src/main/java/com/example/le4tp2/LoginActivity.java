@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -59,8 +60,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         sp = PreferenceManager.getDefaultSharedPreferences(this);
         editor = sp.edit();
-        edtLogin = findViewById(R.id.login_edtLogin);
-        edtPasse = findViewById(R.id.login_edtPasse);
+
+
+        TextInputLayout loginInput = findViewById(R.id.login_edtLogin);
+        edtLogin = loginInput.getEditText();
+
+        TextInputLayout passeInput = findViewById(R.id.login_edtPasse);
+        edtPasse = passeInput.getEditText();
+
         cbRemember = findViewById(R.id.login_cbRemember);
         btnOK = findViewById(R.id.login_btnOK);
 
