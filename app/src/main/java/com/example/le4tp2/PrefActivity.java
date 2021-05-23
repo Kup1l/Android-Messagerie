@@ -1,18 +1,20 @@
 package com.example.le4tp2;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.preference.PreferenceActivity;
-
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.annotation.Nullable;
 
-public class PrefActivity extends PreferenceActivity {
+import org.androidannotations.annotations.EActivity;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
+@EActivity(R.layout.activity_pref)
+public class PrefActivity extends FragmentActivity {
 
         //Amélioration avec fragment
-        addPreferencesFromResource(R.xml.preferences);
-    }
+
+
 }
