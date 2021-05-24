@@ -18,7 +18,9 @@
     <!-- Custom colors -->
     <color name="primary">#283593</color>
     <color name="primary_light">#5f5fc4</color>
+    <color name="primary_lighter">#9fa8da</color>
     <color name="primary_dark">#001064</color>
+    <color name="primary_darker">#000</color>
     <color name="text_on_p">#fff</color>
 
     <color name="secondary">#ffab00</color>

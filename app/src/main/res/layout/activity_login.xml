@@ -4,7 +4,7 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_light"
+    android:background="?attr/colorPrimaryVariant"
     android:gravity="center_horizontal|right"
     android:orientation="vertical" >
 
@@ -16,7 +16,7 @@
         android:paddingTop="30pt"
         android:paddingBottom="20pt"
         android:text="@string/titre"
-        android:textColor="@color/text_on_p"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="20pt" />
 
     <LinearLayout
@@ -28,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login"
-            android:layout_margin="5pt" >
+            android:layout_margin="5pt"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -49,7 +50,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/passe"
             app:endIconMode="password_toggle"
-            android:layout_margin="5pt" >
+            android:layout_margin="5pt"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -70,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/remember"
-            android:textColor="@color/text_on_p" />
+            android:textColor="?attr/colorOnPrimary" />
 
         <CheckBox
             android:id="@+id/login_cbRemember"
@@ -86,8 +88,8 @@
         android:layout_height="wrap_content"
         android:enabled="false"
         android:text="@string/ok"
-        android:backgroundTint="@color/secondary"
-        android:textColor="@color/text_on_s"
+        android:backgroundTint="?attr/colorSecondary"
+        android:textColor="?attr/colorOnSecondary"
         android:layout_gravity="center"
         android:paddingStart="50pt"
         android:paddingEnd="50pt" />
