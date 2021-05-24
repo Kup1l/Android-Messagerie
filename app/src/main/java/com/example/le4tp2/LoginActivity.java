@@ -103,20 +103,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         alerter("click sur OK");
 
         apiService = APIClient.getClient(this).create(APIInterface.class);
-        Call<ResponseBody> call1 = apiService.doConnect(edtLogin.getText().toString(),edtPasse.getText().toString());
-        call1.enqueue(new Callback<ResponseBody>() {
+        Call<AuthResponse> call1 = apiService.doConnect(edtLogin.getText().toString(),edtPasse.getText().toString());
+        call1.enqueue(new Callback<AuthResponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 Log.i(CAT,call.toString());
-                Log.i(CAT,response.toString());
-                Log.i(CAT,response.message());
-                Log.i(CAT,""+response.code());
-                if (response.code() == 202){
+                Log.i(CAT,response.body().toString());
+                AuthResponse authResponse = response.body();
+                Log.i(CAT,""+authResponse.status);
+                if (authResponse.status == 202){
                     savePrefs();
                     Intent iVersChoixConv = new Intent(LoginActivity.this,ChoixConvActivity.class);
                     Bundle bdl = new Bundle();
-                    String hash = "4e28dafe87d65cca1482d21e76c61a06";
-                    bdl.putString("hash",hash);
+                    bdl.putString("hash",authResponse.hash);
                     iVersChoixConv.putExtras(bdl);
                     startActivity(iVersChoixConv);
                 }else{
@@ -126,7 +125,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
                 call.cancel();
             }
         });
