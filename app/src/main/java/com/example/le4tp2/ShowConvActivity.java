@@ -72,7 +72,7 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void recuperationMessages(){
-        gs.alerter("recuperation");
+        //gs.alerter("recuperation");
         Call<ListMessage> call1 = apiService.doGetListMessageConversation(idConv,hash);
         call1.enqueue(new Callback<ListMessage>() {
             @Override
