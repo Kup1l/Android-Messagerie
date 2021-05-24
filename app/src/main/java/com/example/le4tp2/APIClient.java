@@ -39,9 +39,6 @@ public class APIClient {
                 .client(client)
                 .build();
 
-        //TODO : permettre la modification de l'URL de base
-        // lors du changement des préférences
-
         return retrofit;
     }
 }

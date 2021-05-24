@@ -1,13 +1,16 @@
 package com.example.le4tp2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
@@ -16,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,12 +32,18 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
     private static final String CAT = "LE4-SI";
     APIInterface apiService;
     String hash;
+    Spinner spinner;
+    Button btnOK;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choix_conversation);
+        spinner = findViewById(R.id.choixConversation_choixConv);
+        btnOK = findViewById(R.id.choixConversation_btnOK);
+        btnOK.setOnClickListener(this);
+
         Bundle bdl = this.getIntent().getExtras();
         Log.i(CAT,bdl.getString("hash"));
         hash = bdl.getString("hash");
@@ -64,23 +74,23 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        //TODO
+        Log.i(CAT,"Lancement");
+        Conversation conv = (Conversation) spinner.getSelectedItem();
+        Log.i(CAT,conv.getId().toString());
+        Log.i(CAT,conv.toString());
+        Intent iVersShowConv = new Intent(ChoixConvActivity.this,ShowConvActivity.class);
+        Bundle bdl = new Bundle();
+        bdl.putString("hash",hash);
+        bdl.putString("idConv",conv.getId());
+        iVersShowConv.putExtras(bdl);
+        Log.i(CAT,"GO");
+        startActivity(iVersShowConv);
     }
 
     private void remplirSpinner(ListConversation lc){
-        Spinner s = findViewById(R.id.choixConversation_choixConv);
-        List<String> list = new ArrayList<String>();
-        for ( Conversation conv : lc.conversations) {
-            Log.i(CAT,conv.toString());
-            Log.i(CAT,conv.isActive);
-            if(conv.isActive.equals("1")){
-                list.add(conv.theme);
-            }
-        }
-        Log.i(CAT,list.toString());
-        ArrayAdapter<String> adp1 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, list);
+        ArrayAdapter<Conversation> adp1 = new ArrayAdapter<Conversation>(this,android.R.layout.simple_spinner_dropdown_item, lc.getConversations());
         adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s.setAdapter(adp1);
+        spinner.setAdapter(adp1);
         Log.i(CAT,"Fin Spinner");
     }
 }

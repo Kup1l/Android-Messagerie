@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".PrefActivity_"/>
         <activity android:name=".ChoixConvActivity"/>
+        <activity android:name=".ShowConvActivity"/>
     </application>
 
 </manifest>

@@ -14,5 +14,16 @@
     <color name="blanc">#ffffff</color>
     <color name="noir">#000000</color>
     <color name="dark_grey">#000000</color>
+
+    <!-- Custom colors -->
+    <color name="primary">#283593</color>
+    <color name="primary_light">#5f5fc4</color>
+    <color name="primary_dark">#001064</color>
+    <color name="text_on_p">#fff</color>
+
+    <color name="secondary">#ffab00</color>
+    <color name="secondary_light">#ffdd4b</color>
+    <color name="secondary_dark">#c67c00</color>
+    <color name="text_on_s">#000</color>
 </resources>
 
