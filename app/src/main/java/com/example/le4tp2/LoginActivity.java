@@ -171,7 +171,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.action_settings :
                 alerter("Préférences");
                 // Changer d'activité pour afficher PrefsActivity
-                Intent change2Prefs = new Intent(this,PrefActivity.class);
+                Intent change2Prefs = new Intent(this,PrefActivity_.class);
                 startActivity(change2Prefs);
                 break;
             case R.id.action_account :
