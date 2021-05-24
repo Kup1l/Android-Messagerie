@@ -165,6 +165,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Toast t = Toast.makeText(this,s,Toast.LENGTH_SHORT);
         t.show();
     }
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (sp.getBoolean("remember",false)) {
+            // et remplir (si nécessaire) les champs pseudo, passe, case à cocher
+            cbRemember.setChecked(true);
+            edtLogin.setText(sp.getString("login",""));
+            edtPasse.setText(sp.getString("passe",""));
+        }
+    }
 
     // Gestionnaire d'événement pour le menu
     @Override
