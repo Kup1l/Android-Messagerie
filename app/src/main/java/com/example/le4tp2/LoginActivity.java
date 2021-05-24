@@ -23,6 +23,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -106,12 +107,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Call<AuthResponse> call1 = apiService.doConnect(edtLogin.getText().toString(),edtPasse.getText().toString());
         call1.enqueue(new Callback<AuthResponse>() {
             @Override
-            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+            public void onResponse(@NotNull Call<AuthResponse> call, @NotNull Response<AuthResponse> response) {
                 Log.i(CAT,call.toString());
-                Log.i(CAT,response.body().toString());
-                AuthResponse authResponse = response.body();
-                Log.i(CAT,""+authResponse.status);
-                if (authResponse.status == 202){
+                if (response.code() == 202){
+                    Log.i(CAT,response.body().toString());
+                    AuthResponse authResponse = response.body();
+                    Log.i(CAT,""+authResponse.status);
                     savePrefs();
                     Intent iVersChoixConv = new Intent(LoginActivity.this,ChoixConvActivity.class);
                     Bundle bdl = new Bundle();
@@ -119,6 +120,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     iVersChoixConv.putExtras(bdl);
                     startActivity(iVersChoixConv);
                 }else{
+                    Log.i(CAT,response.errorBody().toString());
                     alerter("Identifiant Invalide");
                 }
                 Log.i(CAT,"Done");
