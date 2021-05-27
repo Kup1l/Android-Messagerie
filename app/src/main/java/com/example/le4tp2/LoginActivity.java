@@ -101,7 +101,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         // Lors de l'appui sur le bouton OK
         // si case est cochée, enregistrer les données dans les préférences
-        gs.alerter("click sur OK");
 
         apiService = APIClient.getClient(this).create(APIInterface.class);
         Call<AuthResponse> call1 = apiService.doConnect(edtLogin.getText().toString(),edtPasse.getText().toString());

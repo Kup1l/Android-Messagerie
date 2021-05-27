@@ -150,39 +150,5 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
         }
 
         edtMsg.setText("");
-    }
-
-    // Afficher les éléments du menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Utiliser menu.xml pour créer le menu (Préférences, Mon Compte)
-        getMenuInflater().inflate(R.menu.menu, menu);
-        if(hash == "" || hash == null) {
-            MenuItem item = menu.findItem(R.id.action_account);
-            item.setVisible(false);
-        }
-        return true;
-    }
-    // Gestionnaire d'événement pour le menu
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings :
-                gs.alerter("Préférences");
-                // Changer d'activité pour afficher PrefsActivity
-                Intent change2Prefs = new Intent(this,PrefActivity_.class);
-                startActivity(change2Prefs);
-                break;
-            case R.id.action_account :
-                gs.alerter("Compte");
-                Intent change2Compte = new Intent(ShowConvActivity.this,CompteActivity.class);
-                Bundle bdl = new Bundle();
-                bdl.putString("hash",hash);
-                bdl.putString("login",login);
-                change2Compte.putExtras(bdl);
-                startActivity(change2Compte);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+    }+
 }
