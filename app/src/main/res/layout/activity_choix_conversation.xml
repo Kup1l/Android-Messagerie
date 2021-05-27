@@ -22,17 +22,9 @@
         android:textColor="@color/blanc"
         android:textSize="12pt" />
 
-    <Spinner
-        android:id="@+id/choixConversation_choixConv"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/choixConversation_choixConv2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blanc" />
-
-    <Button
-        android:id="@+id/choixConversation_btnOK"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="true"
-        android:text="@string/ok" />
+        android:layout_height="645dp" />
 
 </LinearLayout>

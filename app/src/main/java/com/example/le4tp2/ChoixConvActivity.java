@@ -7,26 +7,47 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+<<<<<<< Updated upstream
+=======
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+>>>>>>> Stashed changes
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+<<<<<<< Updated upstream
 import androidx.fragment.app.Fragment;
+=======
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+>>>>>>> Stashed changes
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ChoixConvActivity extends AppCompatActivity implements View.OnClickListener {
+public class ChoixConvActivity extends AppCompatActivity implements RecyclerViewListener {
 
     APIInterface apiService;
     String hash = "";
     String login = "";
+<<<<<<< Updated upstream
     Spinner spinner;
     Button btnOK;
     Bundle bdl;
+=======
+    RecyclerView recyclerView;
+>>>>>>> Stashed changes
     GlobalState gs;
 
 
@@ -35,9 +56,7 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         gs = (GlobalState) getApplication();
         setContentView(R.layout.activity_choix_conversation);
-        spinner = findViewById(R.id.choixConversation_choixConv);
-        btnOK = findViewById(R.id.choixConversation_btnOK);
-        btnOK.setOnClickListener(this);
+        recyclerView = findViewById(R.id.choixConversation_choixConv2);
 
 
         bdl = this.getIntent().getExtras();
@@ -53,7 +72,7 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
             public void onResponse(Call<ListConversation> call, Response<ListConversation> response) {
                 ListConversation lc = response.body();
                 Log.i(gs.TAG,lc.toString());
-                remplirSpinner(lc);
+                remplirRecycler(lc);
                 Log.i(gs.TAG,"Done");
             }
 
@@ -72,9 +91,9 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
-    public void onClick(View view) {
+    public void recyclerViewListClicked(Conversation conversation){
         Log.i(gs.TAG,"Lancement");
-        Conversation conv = (Conversation) spinner.getSelectedItem();
+        Conversation conv = conversation;
         Log.i(gs.TAG,conv.getId().toString());
         Log.i(gs.TAG,conv.toString());
         Intent iVersShowConv = new Intent(ChoixConvActivity.this,ShowConvActivity.class);
@@ -86,11 +105,11 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
         startActivity(iVersShowConv);
     }
 
-    private void remplirSpinner(ListConversation lc){
-        ArrayAdapter<Conversation> adp1 = new ArrayAdapter<Conversation>(this,android.R.layout.simple_spinner_dropdown_item, lc.getConversations());
-        adp1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adp1);
-        Log.i(gs.TAG,"Fin Spinner");
+
+    private void remplirRecycler(ListConversation lc){
+        ConversationAdapter adp = new ConversationAdapter(this,this,lc.conversations);
+        recyclerView.setAdapter(adp);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
 
