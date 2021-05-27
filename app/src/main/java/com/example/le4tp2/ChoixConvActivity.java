@@ -88,6 +88,7 @@ public class ChoixConvActivity extends AppCompatActivity implements RecyclerView
         Intent iVersShowConv = new Intent(ChoixConvActivity.this,ShowConvActivity.class);
         Bundle bdl = new Bundle();
         bdl.putString("hash",hash);
+        bdl.putString("login",login);
         bdl.putString("idConv",conv.getId());
         iVersShowConv.putExtras(bdl);
         Log.i(gs.TAG,"GO");
