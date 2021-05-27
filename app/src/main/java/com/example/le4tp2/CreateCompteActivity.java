@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,8 +33,12 @@ public class CreateCompteActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         gs = (GlobalState) getApplication();
         setContentView(R.layout.activity_create_compte);
-        edtLogin = findViewById(R.id.create_compte_edtLogin);
-        edtPasse = findViewById(R.id.create_compte_edtPasse);
+
+        TextInputLayout loginInput = findViewById(R.id.create_compte_edtLogin);
+        edtLogin = loginInput.getEditText();
+
+        TextInputLayout passeInput = findViewById(R.id.create_compte_edtPasse);
+        edtPasse = passeInput.getEditText();
         btnOK = findViewById(R.id.create_compte_btnOK);
         btnOK.setOnClickListener(this);
 

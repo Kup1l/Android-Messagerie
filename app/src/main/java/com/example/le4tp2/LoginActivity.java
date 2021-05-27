@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -87,6 +88,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             edtLogin.setText(sp.getString("login",""));
             edtPasse.setText(sp.getString("passe",""));
         }
+
+        boolean dark = sp.getBoolean("theme", false);
+        if (dark)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         // Vérifier l'état du réseau
         if (gs.verifReseau()) {
