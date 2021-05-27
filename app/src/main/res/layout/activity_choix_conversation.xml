@@ -26,7 +26,6 @@
         android:id="@+id/choixConversation_choixConv2"
         android:layout_width="match_parent"
         android:layout_height="645dp"
-        android:paddingLeft="5pt"
-        android:background="?attr/colorSurface" />
+        android:background="?attr/colorPrimarySurface" />
 
 </LinearLayout>

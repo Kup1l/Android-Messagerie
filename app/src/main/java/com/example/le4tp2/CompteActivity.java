@@ -43,17 +43,10 @@ public class CompteActivity extends AppCompatActivity implements View.OnClickLis
         gs = (GlobalState) getApplication();
         setContentView(R.layout.activity_compte);
 
-
         labelLogin = findViewById(R.id.compte_labelLogin);
 
         TextInputLayout passeInput = findViewById(R.id.compte_edtPasse);
         edtPasse = passeInput.getEditText();
-
-        menuCouleur = findViewById(R.id.compte_couleur);
-        String[] couleurs = {"red", "green", "blue"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item, couleurs);
-        menuCouleur.setAdapter(adapter);
-
 
         btnOK = findViewById(R.id.compte_btnOK);
         btnOK.setOnClickListener(this);
@@ -79,9 +72,8 @@ public class CompteActivity extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Log.i(gs.TAG,response.toString());
-                    Log.i(gs.TAG,response.raw().toString());
                     Log.i(gs.TAG,call.request().toString());
-                    if(response.code() == 202) {
+                    if(response.code() == 200) {
                         gs.alerter("Mot de passe changé");
                         Intent iVersChoixConv = new Intent(CompteActivity.this,ChoixConvActivity.class);
                         iVersChoixConv.putExtras(bdl);

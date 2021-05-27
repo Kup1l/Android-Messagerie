@@ -36,7 +36,7 @@ public class MenuFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu, menu);
         super.onCreateOptionsMenu(menu,inflater);
-        if(this.getArguments().getString("hash")==null){ // if user is not logged
+        if(this.getArguments()==null){ // if user is not logged
             menu.getItem(0).setVisible(false); // hide action_create_account menu entry
             menu.getItem(2).setVisible(false); // hide action_account menu entry
         }

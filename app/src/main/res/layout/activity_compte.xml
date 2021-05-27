@@ -39,7 +39,7 @@
             android:id="@+id/compte_edtPasse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/passe"
+            android:hint="@string/changePasse"
             app:endIconMode="password_toggle"
             android:layout_margin="5pt"
             >
@@ -48,28 +48,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/couleur"
-            android:layout_margin="5pt">
-
-            <AutoCompleteTextView
-                android:id="@+id/compte_couleur"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                />
 
         </com.google.android.material.textfield.TextInputLayout>
 

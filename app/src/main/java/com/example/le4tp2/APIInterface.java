@@ -35,9 +35,8 @@ interface APIInterface {
     @POST("conversations/{id}/messages")
     Call<ResponseBody> doPostMessage(@Path("id") String identifiant, @Field("contenu") String contenu, @Header("hash") String hash);
 
-    @FormUrlEncoded
     @PUT("users")
-    Call<ResponseBody> doChangePassword(@Field("password") String password, @Header("hash") String hash);
+    Call<ResponseBody> doChangePassword(@Query("password") String password, @Header("hash") String hash);
 
     @FormUrlEncoded
     @POST("users")

@@ -110,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.i(gs.TAG,call.toString());
                 if (response.code() == 202){
                     Log.i(gs.TAG,response.body().toString());
+                    Log.i(gs.TAG,call.request().toString());
                     AuthResponse authResponse = response.body();
                     Log.i(gs.TAG,""+authResponse.status);
                     savePrefs();
