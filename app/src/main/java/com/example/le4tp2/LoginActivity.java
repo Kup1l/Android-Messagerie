@@ -51,9 +51,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     CheckBox cbRemember;
     Button btnOK;
     SharedPreferences.Editor editor;
-    private final String CAT = "LE4-SI";
     APIInterface apiService;
     GlobalState gs;
+    String hash="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,29 +101,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         // Lors de l'appui sur le bouton OK
         // si case est cochée, enregistrer les données dans les préférences
-        alerter("click sur OK");
+        gs.alerter("click sur OK");
 
         apiService = APIClient.getClient(this).create(APIInterface.class);
         Call<AuthResponse> call1 = apiService.doConnect(edtLogin.getText().toString(),edtPasse.getText().toString());
         call1.enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(@NotNull Call<AuthResponse> call, @NotNull Response<AuthResponse> response) {
-                Log.i(CAT,call.toString());
+                Log.i(gs.TAG,call.toString());
                 if (response.code() == 202){
-                    Log.i(CAT,response.body().toString());
+                    Log.i(gs.TAG,response.body().toString());
                     AuthResponse authResponse = response.body();
-                    Log.i(CAT,""+authResponse.status);
+                    Log.i(gs.TAG,""+authResponse.status);
                     savePrefs();
                     Intent iVersChoixConv = new Intent(LoginActivity.this,ChoixConvActivity.class);
                     Bundle bdl = new Bundle();
                     bdl.putString("hash",authResponse.hash);
+                    hash = authResponse.hash;
+                    bdl.putString("login",edtLogin.getText().toString());
                     iVersChoixConv.putExtras(bdl);
                     startActivity(iVersChoixConv);
                 }else{
-                    Log.i(CAT,response.errorBody().toString());
-                    alerter("Identifiant Invalide");
+                    Log.i(gs.TAG,response.errorBody().toString());
+                    gs.alerter("Identifiant Invalide");
                 }
-                Log.i(CAT,"Done");
+                Log.i(gs.TAG,"Done");
             }
 
             @Override
@@ -138,7 +140,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPreferences settings =
                 PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = settings.edit();
-        editor.clear();
 
         if (cbRemember.isChecked()) {
             editor.putBoolean("remember", true);
@@ -151,12 +152,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         editor.commit();
     }
-
-    private void alerter(String s) {
-        Log.i(CAT,s);
-        Toast t = Toast.makeText(this,s,Toast.LENGTH_SHORT);
-        t.show();
-    }
     
     @Override
     public void onResume() {
@@ -168,4 +163,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             edtPasse.setText(sp.getString("passe",""));
         }
     }
+
 }
