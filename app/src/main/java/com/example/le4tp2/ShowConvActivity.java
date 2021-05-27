@@ -150,5 +150,5 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
         }
 
         edtMsg.setText("");
-    }+
+    }
 }
