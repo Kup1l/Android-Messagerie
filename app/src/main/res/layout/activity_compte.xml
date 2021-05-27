@@ -18,33 +18,25 @@
         android:textColor="?attr/colorOnPrimary"
         android:textSize="20pt" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/compte_edtLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login"
-            android:layout_margin="5pt"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/compte_labelLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/login"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="10pt"
+        android:layout_gravity="start"
+        android:layout_marginStart="10pt"
+        android:layout_marginTop="5pt"
+        android:layout_marginBottom="5pt"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/login_edtPasse"
+            android:id="@+id/compte_edtPasse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/passe"
@@ -66,7 +58,6 @@
         android:layout_height="wrap_content" >
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/menu"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -74,27 +65,13 @@
             android:layout_margin="5pt">
 
             <AutoCompleteTextView
+                android:id="@+id/compte_couleur"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <!--<TextView
-            android:id="@+id/compte_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/couleur"
-            android:textColor="@color/blanc" />
-
-        <Spinner
-            android:id="@+id/compte_listeAvatars"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/blanc"
-            android:entries="@array/couleurs" />-->
 
     </LinearLayout>
 

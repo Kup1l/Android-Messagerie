@@ -1,17 +1,22 @@
 package com.example.le4tp2;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
@@ -29,14 +34,26 @@ public class CompteActivity extends AppCompatActivity implements View.OnClickLis
     EditText edtPasse;
     Button btnOK;
     GlobalState gs;
+    AutoCompleteTextView menuCouleur;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         gs = (GlobalState) getApplication();
         setContentView(R.layout.activity_compte);
+
+
         labelLogin = findViewById(R.id.compte_labelLogin);
-        edtPasse = findViewById(R.id.compte_edtPasse);
+
+        TextInputLayout passeInput = findViewById(R.id.compte_edtPasse);
+        edtPasse = passeInput.getEditText();
+
+        menuCouleur = findViewById(R.id.compte_couleur);
+        String[] couleurs = {"red", "green", "blue"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item, couleurs);
+        menuCouleur.setAdapter(adapter);
+
+
         btnOK = findViewById(R.id.compte_btnOK);
         btnOK.setOnClickListener(this);
 
