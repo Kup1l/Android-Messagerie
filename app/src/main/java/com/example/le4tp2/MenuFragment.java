@@ -52,12 +52,12 @@ public class MenuFragment extends Fragment {
                 startActivity(change2Prefs);
                 break;
             case R.id.action_account :
-                // Intent ...
-                // TODO redirection changer le mdp
+                Intent change2Account = new Intent(getActivity(), CompteActivity.class);
+                startActivity(change2Account);
                 break;
             case R.id.action_create_account :
-                // Intent ...
-                // TODO redirection creer compte
+                Intent change2create = new Intent(getActivity(), CreateCompteActivity.class);
+                startActivity(change2create);
                 break;
         }
         return super.onOptionsItemSelected(item);
