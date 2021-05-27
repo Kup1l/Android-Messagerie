@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Timer;
@@ -49,7 +51,8 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
 
         idLastMessage = "-1";
 
-        edtMsg = findViewById(R.id.conversation_edtMessage);
+        TextInputLayout msgInput = findViewById(R.id.conversation_edtMessage);
+        edtMsg = msgInput.getEditText();
 
         Bundle bdl = this.getIntent().getExtras();
         idConv = bdl.getString("idConv");

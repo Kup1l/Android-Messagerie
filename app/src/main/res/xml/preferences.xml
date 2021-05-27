@@ -12,7 +12,7 @@
         android:summary="Adresse de la page fournissant les données d'absence. Utiliser 10.0.2.2 pour désigner le serveur sur lequel tourne l'émulateur"/>
     <SwitchPreference android:key="theme"
         android:title="Thème sombre"
-        android:defaultValue="false"
+        android:defaultValue=""
         />
     <PreferenceCategory android:key="identifiants"
         android:title="Identifiants"

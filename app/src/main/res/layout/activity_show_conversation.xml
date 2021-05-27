@@ -1,21 +1,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/orange"
+    android:background="?attr/colorPrimaryVariant"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/conversation_edtMessage"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/message"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:background="@color/blanc"
-        android:ems="10"
-        android:inputType="textMultiLine" />
+        android:layout_alignParentStart="true"
+        android:inputType="textMultiLine"
+
+        android:layout_marginStart="5pt"
+        android:layout_marginBottom="5pt"
+        android:layout_marginEnd="50pt"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/conversation_btnOK"
@@ -24,7 +36,14 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:enabled="true"
-        android:text="@string/ok" />
+        android:text="@string/ok"
+        android:backgroundTint="?attr/colorSecondary"
+        android:textColor="?attr/colorOnSecondary"
+        app:icon="@android:drawable/ic_menu_send"
+
+        android:layout_marginBottom="6pt"
+        android:layout_marginEnd="5pt"
+        />
 
     <ScrollView
         android:id="@+id/conversation_svMessages"
@@ -34,7 +53,9 @@
         android:layout_alignLeft="@+id/conversation_titre"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/conversation_titre"
-        android:background="@color/blanc" >
+        android:background="?attr/colorSurface"
+        android:layout_marginBottom="5pt"
+        >
 
         <LinearLayout
             android:id="@+id/conversation_svLayoutMessages"
@@ -54,7 +75,7 @@
         android:gravity="center|center_horizontal"
         android:text="@string/conversation"
         android:textAlignment="gravity"
-        android:textColor="@color/blanc"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="20pt" />
 
 </RelativeLayout>

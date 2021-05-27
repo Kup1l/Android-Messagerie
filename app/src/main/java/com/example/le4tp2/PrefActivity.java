@@ -1,5 +1,6 @@
 package com.example.le4tp2;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,7 +30,9 @@ public class PrefActivity extends FragmentActivity implements SharedPreferences.
             else
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-            recreate();
+            SharedPreferences.Editor edt = sp.edit();
+            edt.putBoolean("theme", dark);
+            edt.apply();
         }
     }
 

@@ -138,7 +138,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPreferences settings =
                 PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = settings.edit();
-        editor.clear();
 
         if (cbRemember.isChecked()) {
             editor.putBoolean("remember", true);
