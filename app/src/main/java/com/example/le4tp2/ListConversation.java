@@ -15,4 +15,6 @@ public class ListConversation {
                 "conversations=" + conversations +
                 '}';
     }
+
+
 }

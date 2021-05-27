@@ -23,6 +23,8 @@
         <activity android:name=".PrefActivity_"/>
         <activity android:name=".ChoixConvActivity"/>
         <activity android:name=".ShowConvActivity"/>
+        <activity android:name=".CompteActivity"/>
+        <activity android:name=".CreateCompteActivity"/>
     </application>
 
 </manifest>
