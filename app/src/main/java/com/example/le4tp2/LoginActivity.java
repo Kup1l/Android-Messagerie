@@ -152,14 +152,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editor.commit();
     }
 
-    // Afficher les éléments du menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Utiliser menu.xml pour créer le menu (Préférences, Mon Compte)
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
     private void alerter(String s) {
         Log.i(CAT,s);
         Toast t = Toast.makeText(this,s,Toast.LENGTH_SHORT);
@@ -175,22 +167,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             edtLogin.setText(sp.getString("login",""));
             edtPasse.setText(sp.getString("passe",""));
         }
-    }
-
-    // Gestionnaire d'événement pour le menu
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings :
-                alerter("Préférences");
-                // Changer d'activité pour afficher PrefsActivity
-                Intent change2Prefs = new Intent(this,PrefActivity_.class);
-                startActivity(change2Prefs);
-                break;
-            case R.id.action_account :
-                alerter("Compte");
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
