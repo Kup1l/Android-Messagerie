@@ -25,6 +25,7 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
     String hash;
     Spinner spinner;
     Button btnOK;
+    Bundle bdl;
 
 
     @Override
@@ -38,9 +39,6 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
         Bundle bdl = this.getIntent().getExtras();
         Log.i(CAT,bdl.getString("hash"));
         hash = bdl.getString("hash");
-
-        getFragmentManager().findFragmentById(R.id.menu_fragment).setArguments(bdl); //setting menu fragment argument to notify it that we're logged
-
 
         apiService = APIClient.getClient(this).create(APIInterface.class);
         Call<ListConversation> call1 = apiService.doGetListConversation(hash);
@@ -63,6 +61,7 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onStart() {
         super.onStart();
+        getFragmentManager().findFragmentById(R.id.menu_fragment).setArguments(bdl); //setting menu fragment argument to notify it that we're logged
 
     }
 
