@@ -56,13 +56,18 @@ public class CompteActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         String msg = edtPasse.getText().toString();
         if(msg != ""){
-            Call<ResponseBody> call1 = apiService.doChangePassword(msg,hash);
+            UpdatePassword updatepassword = new UpdatePassword();
+            updatepassword.setPassword(msg);
+            Call<ResponseBody> call1 = apiService.doChangePassword(updatepassword,hash);
             call1.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Log.i(gs.TAG,response.toString());
                     Log.i(gs.TAG,call.request().toString());
-                    gs.alerter("Mot de passe changé");
+                    if(response.code() == 202)
+                        gs.alerter("Mot de passe changé");
+                    else
+                        gs.alerter(response.message());
                 }
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {

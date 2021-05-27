@@ -7,6 +7,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -34,9 +35,9 @@ interface APIInterface {
     @POST("conversations/{id}/messages")
     Call<ResponseBody> doPostMessage(@Path("id") String identifiant, @Field("contenu") String contenu, @Header("hash") String hash);
 
-    @FormUrlEncoded
+    @Headers({"Content-Type: application/json"})
     @PUT("users")
-    Call<ResponseBody> doChangePassword(@Field("password") String password, @Header("hash") String hash);
+    Call<ResponseBody> doChangePassword(@Body UpdatePassword body, @Header("hash") String hash);
 
     @FormUrlEncoded
     @POST("users")
