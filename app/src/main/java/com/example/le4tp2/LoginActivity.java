@@ -51,9 +51,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     CheckBox cbRemember;
     Button btnOK;
     SharedPreferences.Editor editor;
-    private final String CAT = "LE4-SI";
     APIInterface apiService;
     GlobalState gs;
+    String hash="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,29 +101,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         // Lors de l'appui sur le bouton OK
         // si case est cochée, enregistrer les données dans les préférences
-        alerter("click sur OK");
+        gs.alerter("click sur OK");
 
         apiService = APIClient.getClient(this).create(APIInterface.class);
         Call<AuthResponse> call1 = apiService.doConnect(edtLogin.getText().toString(),edtPasse.getText().toString());
         call1.enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(@NotNull Call<AuthResponse> call, @NotNull Response<AuthResponse> response) {
-                Log.i(CAT,call.toString());
+                Log.i(gs.TAG,call.toString());
                 if (response.code() == 202){
-                    Log.i(CAT,response.body().toString());
+                    Log.i(gs.TAG,response.body().toString());
                     AuthResponse authResponse = response.body();
-                    Log.i(CAT,""+authResponse.status);
+                    Log.i(gs.TAG,""+authResponse.status);
                     savePrefs();
                     Intent iVersChoixConv = new Intent(LoginActivity.this,ChoixConvActivity.class);
                     Bundle bdl = new Bundle();
                     bdl.putString("hash",authResponse.hash);
+                    hash = authResponse.hash;
+                    bdl.putString("login",edtLogin.getText().toString());
                     iVersChoixConv.putExtras(bdl);
                     startActivity(iVersChoixConv);
                 }else{
-                    Log.i(CAT,response.errorBody().toString());
-                    alerter("Identifiant Invalide");
+                    Log.i(gs.TAG,response.errorBody().toString());
+                    gs.alerter("Identifiant Invalide");
                 }
-                Log.i(CAT,"Done");
+                Log.i(gs.TAG,"Done");
             }
 
             @Override
@@ -150,20 +152,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         editor.commit();
     }
-
-    // Afficher les éléments du menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Utiliser menu.xml pour créer le menu (Préférences, Mon Compte)
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    private void alerter(String s) {
-        Log.i(CAT,s);
-        Toast t = Toast.makeText(this,s,Toast.LENGTH_SHORT);
-        t.show();
-    }
     
     @Override
     public void onResume() {
@@ -176,18 +164,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    // Afficher les éléments du menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Utiliser menu.xml pour créer le menu (Préférences, Mon Compte)
+        getMenuInflater().inflate(R.menu.menu, menu);
+        if(hash == "") {
+            MenuItem item = menu.findItem(R.id.action_account);
+            item.setVisible(false);
+        }
+        return true;
+    }
     // Gestionnaire d'événement pour le menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings :
-                alerter("Préférences");
+                gs.alerter("Préférences");
                 // Changer d'activité pour afficher PrefsActivity
                 Intent change2Prefs = new Intent(this,PrefActivity_.class);
                 startActivity(change2Prefs);
                 break;
             case R.id.action_account :
-                alerter("Compte");
+                gs.alerter("Compte");
+                Intent change2Compte = new Intent(LoginActivity.this,CompteActivity.class);
+                Bundle bdl = new Bundle();
+                bdl.putString("hash",hash);
+                bdl.putString("login",edtLogin.getText().toString());
+                change2Compte.putExtras(bdl);
+                startActivity(change2Compte);
                 break;
         }
         return super.onOptionsItemSelected(item);

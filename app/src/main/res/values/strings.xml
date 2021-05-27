@@ -7,8 +7,10 @@
     <string name="titre">IAM-Chat !</string>
     <string name="login">Login : </string>
     <string name="passe">Mot de passe : </string>
+    <string name="changePasse">Changer mot de passe : </string>
     <string name="ok">OK</string>
     <string name="monCompte">Mon Compte</string>
+    <string name="createCompte">Créer Compte</string>
     <string name="couleur">Couleur Préférée : </string>
     <string name="choixConversation">Choix Conversation</string>
     <string name="conversation">Conversation</string>

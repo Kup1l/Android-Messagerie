@@ -1,10 +1,13 @@
 package com.example.le4tp2;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,10 +32,10 @@ import retrofit2.Response;
 public class ShowConvActivity extends AppCompatActivity implements View.OnClickListener {
 
     SharedPreferences settings;
-    private static final String CAT = "LE4-SI";
     APIInterface apiService;
     String hash;
     String idConv;
+    String login;
     String idLastMessage;
 
     private LinearLayout msgLayout;
@@ -57,8 +60,9 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
         Bundle bdl = this.getIntent().getExtras();
         idConv = bdl.getString("idConv");
         hash = bdl.getString("hash");
-        Log.i(CAT,idConv);
-        Log.i(CAT,hash);
+        login = bdl.getString("login");
+        Log.i(gs.TAG,idConv);
+        Log.i(gs.TAG,hash);
 
         apiService = APIClient.getClient(this).create(APIInterface.class);
         recuperationMessages();
@@ -124,9 +128,9 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
             call1.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Log.i(CAT,response.toString());
-                    Log.i(CAT,response.message());
-                    Log.i(CAT,""+response.code());
+                    Log.i(gs.TAG,response.toString());
+                    Log.i(gs.TAG,response.message());
+                    Log.i(gs.TAG,""+response.code());
                     if(response.code() == 201){
                         gs.alerter("Message Envoyé");
                         recuperationMessages();
@@ -143,8 +147,41 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
         }else {
             gs.alerter("Le message est vide");
         }
-        //TODO Requete
 
         edtMsg.setText("");
+    }
+
+    // Afficher les éléments du menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Utiliser menu.xml pour créer le menu (Préférences, Mon Compte)
+        getMenuInflater().inflate(R.menu.menu, menu);
+        if(hash == "" || hash == null) {
+            MenuItem item = menu.findItem(R.id.action_account);
+            item.setVisible(false);
+        }
+        return true;
+    }
+    // Gestionnaire d'événement pour le menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings :
+                gs.alerter("Préférences");
+                // Changer d'activité pour afficher PrefsActivity
+                Intent change2Prefs = new Intent(this,PrefActivity_.class);
+                startActivity(change2Prefs);
+                break;
+            case R.id.action_account :
+                gs.alerter("Compte");
+                Intent change2Compte = new Intent(ShowConvActivity.this,CompteActivity.class);
+                Bundle bdl = new Bundle();
+                bdl.putString("hash",hash);
+                bdl.putString("login",login);
+                change2Compte.putExtras(bdl);
+                startActivity(change2Compte);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
