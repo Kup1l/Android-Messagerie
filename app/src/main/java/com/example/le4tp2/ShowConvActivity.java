@@ -2,6 +2,7 @@ package com.example.le4tp2;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -37,6 +39,7 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
     String idConv;
     String login;
     String idLastMessage;
+    Bundle bdl;
 
     private LinearLayout msgLayout;
     private EditText edtMsg;
@@ -57,12 +60,14 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
         TextInputLayout msgInput = findViewById(R.id.conversation_edtMessage);
         edtMsg = msgInput.getEditText();
 
-        Bundle bdl = this.getIntent().getExtras();
+        bdl = this.getIntent().getExtras();
         idConv = bdl.getString("idConv");
         hash = bdl.getString("hash");
         login = bdl.getString("login");
         Log.i(gs.TAG,idConv);
         Log.i(gs.TAG,hash);
+
+
 
         apiService = APIClient.getClient(this).create(APIInterface.class);
         recuperationMessages();
@@ -79,7 +84,7 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void recuperationMessages(){
-        //gs.alerter("recuperation");
+        Log.i(gs.TAG,"recuperation");
         Call<ListMessage> call1 = apiService.doGetListMessageConversation(idConv,hash);
         call1.enqueue(new Callback<ListMessage>() {
             @Override
@@ -98,7 +103,12 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
                 for(Message message : list){
                     TextView tv = new TextView(ShowConvActivity.this);
                     tv.setText("[" + message.auteur + "] " + message.contenu);
-                    tv.setTextColor(Color.parseColor(message.couleur));
+
+                    int uiMode = AppCompatDelegate.getDefaultNightMode();
+                    if (uiMode != AppCompatDelegate.MODE_NIGHT_YES)
+                        tv.setTextColor(Color.parseColor(message.couleur));
+                    else
+                        tv.setTextColor(Color.parseColor(getNightColor(message.couleur)));
 
                     msgLayout.addView(tv);
                 }
@@ -118,6 +128,7 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onStart() {
         super.onStart();
+        getSupportFragmentManager().findFragmentById(R.id.menu_fragment).setArguments(bdl); //setting menu fragment argument to notify it that we're logged
     }
 
     @Override
@@ -151,37 +162,16 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
         edtMsg.setText("");
     }
 
-    // Afficher les éléments du menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Utiliser menu.xml pour créer le menu (Préférences, Mon Compte)
-        getMenuInflater().inflate(R.menu.menu, menu);
-        if(hash == "" || hash == null) {
-            MenuItem item = menu.findItem(R.id.action_account);
-            item.setVisible(false);
+    private String getNightColor(String color) {
+        switch (color) {
+            case "red":
+                return "#ffcdd2";
+            case "blue":
+                return "#b3e5fc";
+            case "green":
+                return "#c8e6c9";
+            default:
+                return "#FFFFFF";
         }
-        return true;
-    }
-    // Gestionnaire d'événement pour le menu
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings :
-                gs.alerter("Préférences");
-                // Changer d'activité pour afficher PrefsActivity
-                Intent change2Prefs = new Intent(this,PrefActivity_.class);
-                startActivity(change2Prefs);
-                break;
-            case R.id.action_account :
-                gs.alerter("Compte");
-                Intent change2Compte = new Intent(ShowConvActivity.this,CompteActivity.class);
-                Bundle bdl = new Bundle();
-                bdl.putString("hash",hash);
-                bdl.putString("login",login);
-                change2Compte.putExtras(bdl);
-                startActivity(change2Compte);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

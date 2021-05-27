@@ -8,6 +8,13 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
+    <fragment
+        android:id="@+id/menu_fragment"
+        android:name="com.example.le4tp2.MenuFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/conversation_edtMessage"
         android:layout_width="match_parent"

@@ -101,7 +101,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         // Lors de l'appui sur le bouton OK
         // si case est cochée, enregistrer les données dans les préférences
-        gs.alerter("click sur OK");
 
         apiService = APIClient.getClient(this).create(APIInterface.class);
         Call<AuthResponse> call1 = apiService.doConnect(edtLogin.getText().toString(),edtPasse.getText().toString());
@@ -164,37 +163,4 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    // Afficher les éléments du menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Utiliser menu.xml pour créer le menu (Préférences, Mon Compte)
-        getMenuInflater().inflate(R.menu.menu, menu);
-        if(hash == "") {
-            MenuItem item = menu.findItem(R.id.action_account);
-            item.setVisible(false);
-        }
-        return true;
-    }
-    // Gestionnaire d'événement pour le menu
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings :
-                gs.alerter("Préférences");
-                // Changer d'activité pour afficher PrefsActivity
-                Intent change2Prefs = new Intent(this,PrefActivity_.class);
-                startActivity(change2Prefs);
-                break;
-            case R.id.action_account :
-                gs.alerter("Compte");
-                Intent change2Compte = new Intent(LoginActivity.this,CompteActivity.class);
-                Bundle bdl = new Bundle();
-                bdl.putString("hash",hash);
-                bdl.putString("login",edtLogin.getText().toString());
-                change2Compte.putExtras(bdl);
-                startActivity(change2Compte);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
