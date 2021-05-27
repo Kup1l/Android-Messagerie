@@ -7,11 +7,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-<<<<<<< Updated upstream
-=======
 import android.view.ViewGroup;
 import android.widget.AdapterView;
->>>>>>> Stashed changes
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -19,9 +16,7 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-<<<<<<< Updated upstream
 import androidx.fragment.app.Fragment;
-=======
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,7 +25,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
->>>>>>> Stashed changes
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,13 +35,8 @@ public class ChoixConvActivity extends AppCompatActivity implements RecyclerView
     APIInterface apiService;
     String hash = "";
     String login = "";
-<<<<<<< Updated upstream
-    Spinner spinner;
-    Button btnOK;
     Bundle bdl;
-=======
     RecyclerView recyclerView;
->>>>>>> Stashed changes
     GlobalState gs;
 
 
