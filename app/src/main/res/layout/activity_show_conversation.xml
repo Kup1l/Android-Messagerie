@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <fragment
-        android:id="@+id/fragment2"
+        android:id="@+id/menu_fragment"
         android:name="com.example.le4tp2.MenuFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

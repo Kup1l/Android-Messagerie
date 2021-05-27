@@ -32,6 +32,7 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
     String hash;
     String idConv;
     String idLastMessage;
+    Bundle bdl;
 
     private LinearLayout msgLayout;
     private EditText edtMsg;
@@ -51,13 +52,13 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
 
         edtMsg = findViewById(R.id.conversation_edtMessage);
 
-        Bundle bdl = this.getIntent().getExtras();
+        bdl = this.getIntent().getExtras();
         idConv = bdl.getString("idConv");
         hash = bdl.getString("hash");
         Log.i(CAT,idConv);
         Log.i(CAT,hash);
 
-        getFragmentManager().findFragmentById(R.id.menu_fragment).setArguments(bdl); //setting menu fragment argument to notify it that we're logged
+
 
         apiService = APIClient.getClient(this).create(APIInterface.class);
         recuperationMessages();
@@ -113,6 +114,7 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onStart() {
         super.onStart();
+        getSupportFragmentManager().findFragmentById(R.id.menu_fragment).setArguments(bdl); //setting menu fragment argument to notify it that we're logged
     }
 
     @Override

@@ -36,7 +36,7 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
         btnOK = findViewById(R.id.choixConversation_btnOK);
         btnOK.setOnClickListener(this);
 
-        Bundle bdl = this.getIntent().getExtras();
+        bdl = this.getIntent().getExtras();
         Log.i(CAT,bdl.getString("hash"));
         hash = bdl.getString("hash");
 
@@ -61,7 +61,7 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onStart() {
         super.onStart();
-        getFragmentManager().findFragmentById(R.id.menu_fragment).setArguments(bdl); //setting menu fragment argument to notify it that we're logged
+        getSupportFragmentManager().findFragmentById(R.id.menu_fragment).setArguments(bdl); //setting menu fragment argument to notify it that we're logged
 
     }
 
