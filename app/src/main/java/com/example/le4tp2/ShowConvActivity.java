@@ -57,6 +57,8 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
         Log.i(CAT,idConv);
         Log.i(CAT,hash);
 
+        getFragmentManager().findFragmentById(R.id.menu_fragment).setArguments(bdl); //setting menu fragment argument to notify it that we're logged
+
         apiService = APIClient.getClient(this).create(APIInterface.class);
         recuperationMessages();
         Timer timer = new Timer();

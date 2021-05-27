@@ -7,6 +7,12 @@
     android:gravity="center_horizontal|right"
     android:orientation="vertical" >
 
+    <fragment
+        android:id="@+id/menu_fragment"
+        android:name="com.example.le4tp2.MenuFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/choixConversation_titre"
         android:layout_width="match_parent"

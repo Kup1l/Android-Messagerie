@@ -1,26 +1,17 @@
 package com.example.le4tp2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import androidx.fragment.app.Fragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,6 +38,9 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
         Bundle bdl = this.getIntent().getExtras();
         Log.i(CAT,bdl.getString("hash"));
         hash = bdl.getString("hash");
+
+        getFragmentManager().findFragmentById(R.id.menu_fragment).setArguments(bdl); //setting menu fragment argument to notify it that we're logged
+
 
         apiService = APIClient.getClient(this).create(APIInterface.class);
         Call<ListConversation> call1 = apiService.doGetListConversation(hash);

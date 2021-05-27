@@ -36,6 +36,10 @@ public class MenuFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu, menu);
         super.onCreateOptionsMenu(menu,inflater);
+        if(this.getArguments()==null){ // if user is not logged
+            menu.getItem(1).setVisible(false); // hide action_account menu entry
+            menu.getItem(2).setVisible(false); // hide action_create_account menu entry
+        }
     }
 
     // Gestionnaire d'événement pour le menu
@@ -48,6 +52,12 @@ public class MenuFragment extends Fragment {
                 startActivity(change2Prefs);
                 break;
             case R.id.action_account :
+                // Intent ...
+                // TODO redirection changer le mdp
+                break;
+            case R.id.action_create_account :
+                // Intent ...
+                // TODO redirection creer compte
                 break;
         }
         return super.onOptionsItemSelected(item);
