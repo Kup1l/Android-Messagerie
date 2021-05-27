@@ -29,6 +29,7 @@ public class CompteActivity extends AppCompatActivity implements View.OnClickLis
     EditText edtPasse;
     Button btnOK;
     GlobalState gs;
+    Bundle bdl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class CompteActivity extends AppCompatActivity implements View.OnClickLis
         btnOK = findViewById(R.id.compte_btnOK);
         btnOK.setOnClickListener(this);
 
-        Bundle bdl = this.getIntent().getExtras();
+        bdl = this.getIntent().getExtras();
         hash = bdl.getString("hash");
         login = bdl.getString("login");
         if(hash == "" || hash == null){
@@ -64,8 +65,12 @@ public class CompteActivity extends AppCompatActivity implements View.OnClickLis
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Log.i(gs.TAG,response.toString());
                     Log.i(gs.TAG,call.request().toString());
-                    if(response.code() == 202)
+                    if(response.code() == 202) {
                         gs.alerter("Mot de passe changé");
+                        Intent iVersChoixConv = new Intent(CompteActivity.this,ChoixConvActivity.class);
+                        iVersChoixConv.putExtras(bdl);
+                        startActivity(iVersChoixConv);
+                    }
                     else
                         gs.alerter(response.message());
                 }

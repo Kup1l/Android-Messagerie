@@ -53,10 +53,14 @@ public class MenuFragment extends Fragment {
                 break;
             case R.id.action_account :
                 Intent change2Account = new Intent(getActivity(), CompteActivity.class);
+                Bundle bdlCompte = this.getArguments();
+                change2Account.putExtras(bdlCompte);
                 startActivity(change2Account);
                 break;
             case R.id.action_create_account :
                 Intent change2create = new Intent(getActivity(), CreateCompteActivity.class);
+                Bundle bdlCreate = this.getArguments();
+                change2create.putExtras(bdlCreate);
                 startActivity(change2create);
                 break;
         }

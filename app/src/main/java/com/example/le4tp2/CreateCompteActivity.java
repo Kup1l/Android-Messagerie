@@ -24,6 +24,7 @@ public class CreateCompteActivity extends AppCompatActivity implements View.OnCl
     EditText edtPasse;
     Button btnOK;
     GlobalState gs;
+    Bundle bdl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class CreateCompteActivity extends AppCompatActivity implements View.OnCl
         btnOK = findViewById(R.id.create_compte_btnOK);
         btnOK.setOnClickListener(this);
 
-        Bundle bdl = this.getIntent().getExtras();
+        bdl = this.getIntent().getExtras();
         hash = bdl.getString("hash");
         if(hash == "" || hash == null){
             Intent change2Login = new Intent(this,LoginActivity.class);
@@ -54,8 +55,12 @@ public class CreateCompteActivity extends AppCompatActivity implements View.OnCl
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Log.i(gs.TAG,response.toString());
-                    if(response.code() == 202)
+                    if(response.code() == 201) {
                         gs.alerter("Compte créé");
+                        Intent iVersChoixConv = new Intent(CreateCompteActivity.this,ChoixConvActivity.class);
+                        iVersChoixConv.putExtras(bdl);
+                        startActivity(iVersChoixConv);
+                    }
                     else
                         gs.alerter(response.message());
                 }
