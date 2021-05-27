@@ -35,6 +35,7 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
     String idConv;
     String login;
     String idLastMessage;
+    Bundle bdl;
 
     private LinearLayout msgLayout;
     private EditText edtMsg;
@@ -54,12 +55,14 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
 
         edtMsg = findViewById(R.id.conversation_edtMessage);
 
-        Bundle bdl = this.getIntent().getExtras();
+        bdl = this.getIntent().getExtras();
         idConv = bdl.getString("idConv");
         hash = bdl.getString("hash");
         login = bdl.getString("login");
         Log.i(gs.TAG,idConv);
         Log.i(gs.TAG,hash);
+
+
 
         apiService = APIClient.getClient(this).create(APIInterface.class);
         recuperationMessages();
@@ -115,6 +118,7 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onStart() {
         super.onStart();
+        getSupportFragmentManager().findFragmentById(R.id.menu_fragment).setArguments(bdl); //setting menu fragment argument to notify it that we're logged
     }
 
     @Override
@@ -146,39 +150,5 @@ public class ShowConvActivity extends AppCompatActivity implements View.OnClickL
         }
 
         edtMsg.setText("");
-    }
-
-    // Afficher les éléments du menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Utiliser menu.xml pour créer le menu (Préférences, Mon Compte)
-        getMenuInflater().inflate(R.menu.menu, menu);
-        if(hash == "" || hash == null) {
-            MenuItem item = menu.findItem(R.id.action_account);
-            item.setVisible(false);
-        }
-        return true;
-    }
-    // Gestionnaire d'événement pour le menu
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings :
-                gs.alerter("Préférences");
-                // Changer d'activité pour afficher PrefsActivity
-                Intent change2Prefs = new Intent(this,PrefActivity_.class);
-                startActivity(change2Prefs);
-                break;
-            case R.id.action_account :
-                gs.alerter("Compte");
-                Intent change2Compte = new Intent(ShowConvActivity.this,CompteActivity.class);
-                Bundle bdl = new Bundle();
-                bdl.putString("hash",hash);
-                bdl.putString("login",login);
-                change2Compte.putExtras(bdl);
-                startActivity(change2Compte);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

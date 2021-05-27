@@ -1,27 +1,19 @@
 package com.example.le4tp2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import androidx.fragment.app.Fragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +26,7 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
     String login = "";
     Spinner spinner;
     Button btnOK;
+    Bundle bdl;
     GlobalState gs;
 
 
@@ -46,8 +39,10 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
         btnOK = findViewById(R.id.choixConversation_btnOK);
         btnOK.setOnClickListener(this);
 
-        Bundle bdl = this.getIntent().getExtras();
+
+        bdl = this.getIntent().getExtras();
         Log.i(gs.TAG,bdl.getString("hash"));
+
         hash = bdl.getString("hash");
         login = bdl.getString("login");
 
@@ -72,6 +67,7 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onStart() {
         super.onStart();
+        getSupportFragmentManager().findFragmentById(R.id.menu_fragment).setArguments(bdl); //setting menu fragment argument to notify it that we're logged
 
     }
 
@@ -97,37 +93,6 @@ public class ChoixConvActivity extends AppCompatActivity implements View.OnClick
         Log.i(gs.TAG,"Fin Spinner");
     }
 
-    // Afficher les éléments du menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Utiliser menu.xml pour créer le menu (Préférences, Mon Compte)
-        getMenuInflater().inflate(R.menu.menu, menu);
-        if(hash == "" || hash == null) {
-            MenuItem item = menu.findItem(R.id.action_account);
-            item.setVisible(false);
-        }
-        return true;
-    }
-    // Gestionnaire d'événement pour le menu
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings :
-                gs.alerter("Préférences");
-                // Changer d'activité pour afficher PrefsActivity
-                Intent change2Prefs = new Intent(this,PrefActivity_.class);
-                startActivity(change2Prefs);
-                break;
-            case R.id.action_account :
-                gs.alerter("Compte");
-                Intent change2Compte = new Intent(ChoixConvActivity.this,CompteActivity.class);
-                Bundle bdl = new Bundle();
-                bdl.putString("hash",hash);
-                bdl.putString("login",login);
-                change2Compte.putExtras(bdl);
-                startActivity(change2Compte);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
+
 }

@@ -12,6 +12,9 @@
         android:orderInCategory="100"
         app:showAsAction="never"
         android:title="@string/action_account"/>
-    
+    <item
+        android:id="@+id/action_create_account"
+        android:title="@string/createCompte" />
+
 
 </menu>
